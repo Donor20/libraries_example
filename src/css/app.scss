@@ -1,0 +1,203 @@
+// app global css in SCSS form
+
+@font-face {
+  font-family: GothamPro;
+  src: url(./fonts/GothamPro.woff);
+}
+
+$flat-active-color: #70D24E;
+$flat-border-color: #D8D8D8;
+$flat-border-radius: 5px;
+
+
+.main-layout {
+  background-color:  #F8F8F8;
+  font-family: GothamPro,serif;
+  line-height: 28px;
+  height: 100%;
+
+  .rangeFilter {
+    .dash {
+      width: 15px;
+    }
+    .rangeFilterName {
+      font-weight: bold;
+      font-size: 12px;
+    }
+    .rangeFilterInput {
+      border: 1px solid $flat-border-color;
+      border-radius: $flat-border-radius;
+      font-size: 16px;
+      text-align-last: center;
+      width: 80px;
+      height: 40px;
+      background-color: white;
+    }
+    .rangeFilterRange {
+      color: $flat-active-color;
+      height: 32px;
+    }
+  }
+
+  .dash {
+    opacity: 50%;
+    align-self: center;
+    text-align: center;
+  }
+  .smallNumber {
+    font-size: 8px;
+    vertical-align: top;
+  }
+  .page {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+  }
+  .scrollArea {
+    flex: 1;
+    width: 100%;
+    overflow: auto;
+  }
+
+  .flatsPage {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 15px;
+    & > .flatsPageTitle {
+      text-transform: uppercase;
+      text-align: center;
+      margin-top: 38px;
+      margin-bottom: 50px;
+    }
+    .flatsPageFilters {
+      margin-left: -60px;
+      & > :nth-child(n) {
+        margin-left: 60px;
+      }
+
+      .btnsFilters {
+        padding-top: 28px;
+        width: 201px;
+        .q-btn {
+          width: 100%;
+        }
+      }
+      .refreshFiltersBtn {
+        text-transform: uppercase;
+        font-size: 10px;
+        font-weight: bold;
+        text-align: center;
+        cursor: pointer;
+        span {
+          border-bottom: 1px solid $flat-active-color;
+        }
+      }
+    }
+    .q-btn {
+      height: 40px;
+      font-weight: bold;
+    }
+    .roomsFilter {
+      margin-left: -4px;
+      .q-btn {
+        border: 1px solid $flat-border-color;
+        background-color: white;
+        margin-left: 4px;
+        width: 48px;
+      }
+    }
+    .q-btn.activeBtn {
+      background-color: $flat-active-color;
+      color: white;
+      border: 0;
+    }
+  }
+
+  .q-btn {
+    border-radius: $flat-border-radius;
+  }
+
+  .flatCards {
+    margin-top: -30px;
+    margin-left: -30px;
+    .flatCard {
+      width: 270px;
+      height: 365px;
+      margin-top: 30px;
+      margin-left: 30px;
+      border-radius: $flat-border-radius;
+      box-shadow: 0px 5px 20px rgba(86, 86, 86, 0.05);
+      .q-card__section {
+        padding: 10px;
+        .top-words {
+          padding-left: 5px;
+          padding-right: 5px;
+          margin-bottom: 4px;
+          font-weight: bold;
+          font-size: 12px;
+          .dash {
+            width: 25px;
+          }
+        }
+        .flatPlan {
+          border: 1px solid $flat-border-color;
+          border-radius: $flat-border-radius
+        }
+        .flatNumber {
+          border-left: 1px solid #EBEBEB;
+          border-bottom: 1px solid #EBEBEB;
+          border-bottom-left-radius: 5px;
+          width: 62px;
+          height: 30px;
+          text-align: center;
+          font-weight: bold;
+        }
+        .priceField {
+          font-size: 20px;
+          font-weight: bold;
+          margin-top: 11px;
+        }
+        .priceSquareField {
+          opacity: 50%;
+          font-weight: bold;
+          font-size: 12px;
+          margin-top: -2px;
+        }
+      }
+    }
+    .flatCard {
+      .flatPlan {
+        transition: all 0.4s ease;
+        width: 250px;
+        height: 250px;
+      }
+      .flatPlanImg {
+        //transition: all 0.4s ease;
+        width: 230px;
+        margin-left: 10px;
+      }
+      .activeBtn {
+        transition: all 0.4s ease;
+        height: 0;
+        opacity: 0;
+      }
+    }
+    .porch {
+      opacity: 50%
+    }
+    .flatCard:hover {
+      .flatPlanImg {
+        width: 186px;
+        margin-left: 32px;
+      }
+      .flatPlan {
+        height: 200px;
+      }
+      .activeBtn {
+        height: 40px;
+        opacity: 1;
+      }
+    }
+  }
+}
