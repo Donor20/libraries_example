@@ -1,18 +1,25 @@
 <template>
   <div class="page libList q-pa-sm q-gutter-sm">
     <h5 class="title">Список библиотек</h5>
-    <div class="filters">
+    <div class="filters row">
       <q-input v-model="nameFilter"
-               class="bordered" placeholder="Начните вбивать название..."
+               class="libInput bordered"
+               placeholder="Начните вбивать название..."
                borderless clearable debounce="500"
+      />
+      <q-select v-model="localeFilter" :options="filteredLocales"
+                @filter="localeFilterFn"
+                class="libInput bordered"
+                placeholder="Выберите местоположение..."
+                borderless clearable debounce="500" use-input hide-selected fill-input
       />
     </div>
     <q-table
-      class="bordered m-table my-sticky-header-table"
+      class="bordered libTable"
       :data="libs"
       :columns="columns"
       separator="cell"
-      flat hide-bottom
+      flat hide-bottom virtual-scroll
       :rows-per-page-options="[0]"
     >
       <template v-slot:header="props">
@@ -42,6 +49,8 @@ export default {
   data () {
     return {
       libs: [],
+      locales: [],
+      filteredLocales: [],
       columns: [
         {
           name: 'name',
@@ -58,15 +67,31 @@ export default {
           align: 'left'
         }
       ],
-      nameFilter: ''
+      nameFilter: '',
+      localeFilter: null
     }
   },
   watch: {
     nameFilter () {
       this.getLibs()
+    },
+    localeFilter () {
+      this.getLibs()
     }
   },
   methods: {
+    localeFilterFn (val, update) {
+      if (val === '') {
+        update(() => {
+          this.filteredLocales = this.locales
+        })
+        return
+      }
+      update(() => {
+        const needle = val.toLowerCase()
+        this.filteredLocales = this.locales.filter(v => v.toLowerCase().indexOf(needle) > -1)
+      })
+    },
     openPage (row) {
       this.$router.push({ path: 'card', query: { id: row._id } })
     },
@@ -76,15 +101,22 @@ export default {
         localeName: row.data.general.locale.name
       }
     },
+    getLocales () {
+      return api.getLocales().then(locales => {
+        this.locales = locales
+      })
+    },
     getLibs () {
       return api.getLibs({
-        name: this.nameFilter
+        name: this.nameFilter,
+        locale: this.localeFilter
       }).then(libs => {
         this.libs = libs
       })
     }
   },
   mounted () {
+    this.getLocales()
     this.getLibs()
   }
 }
@@ -101,17 +133,22 @@ $m-border-radius: 5px;
     text-transform: uppercase;
     text-align: center;
   }
-  .q-input {
+  .libInput {
     font-size: 14px;
     height: 40px;
     background-color: white;
     padding: 0 8px;
+    margin-left: 8px;
+    flex: 1;
+  }
+  .libInput:first-of-type {
+    margin-left: 0;
   }
   .bordered {
     border: 1px solid $m-border-color;
     border-radius: $m-border-radius;
   }
-  .m-table {
+  .libTable {
     max-height: calc(100% - 120px);
     td, th {
       font-size: 14px;
