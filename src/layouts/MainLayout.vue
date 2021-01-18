@@ -33,7 +33,6 @@ export default {
 .main-layout {
   height: 100%;
   position: relative;
-  padding: 10px;
 }
 .page {
   max-width: 1200px;
