@@ -1,7 +1,7 @@
 <template>
   <div class="page libList">
     <div class="q-pa-sm q-gutter-sm full-height">
-      <h6 class="title">Список библиотек</h6>
+      <div class="title text-bold text-indigo">Список библиотек</div>
       <div>
         <div class="q-gutter-sm row">
           <q-input v-model="nameFilter"
@@ -27,7 +27,9 @@
       >
         <template v-slot:header="props">
         <q-tr :props="props">
-          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+          <q-th v-for="col in props.cols" :key="col.name" :props="props"
+                class="bg-white text-indigo"
+          >
             <span class="text-bold">{{col.label}}</span>
           </q-th>
         </q-tr>
@@ -132,6 +134,7 @@ export default {
     margin: 16px 0 16px 0;
     text-transform: uppercase;
     text-align: center;
+    font-size: 18px;
   }
   .libInput {
     font-size: 14px;
@@ -150,7 +153,6 @@ export default {
       tr th {
         position: sticky;
         z-index: 1;
-        background-color: white;
       }
 
       tr:first-child th {

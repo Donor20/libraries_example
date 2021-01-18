@@ -1,14 +1,19 @@
 <template>
   <div v-if="lib" class="page libInfo">
-    <q-scroll-area class="scrollArea">
-      <div class="q-pa-sm q-gutter-sm">
-        <q-img :src="lib.data.general.image.url" style="height: 200px" contain></q-img>
-        <div v-for="(field, index) of fields" :key="index">
-          <div class="title">{{field.title}}</div>
-          <div v-html="field.value" class="value"></div>
+    <div>
+      <q-img :src="lib.data.general.image.url" class="libImg bordered " :ratio="16/9" >
+        <div class="absolute-bottom text-subtitle1">
+          <div class="libImgTitle text-bold">{{name}}</div>
+          <div>
+            <q-icon name="location_on" />
+            {{fullAddress}}
+          </div>
         </div>
+      </q-img>
+      <div class="q-pa-sm q-gutter-sm">
+        <div v-html="description"></div>
       </div>
-    </q-scroll-area>
+    </div>
   </div>
 </template>
 
@@ -23,13 +28,14 @@ export default {
     }
   },
   computed: {
-    fields () {
-      const general = this.lib.data.general
-      return [
-        { title: 'Название', value: general.name },
-        { title: 'Местоположение', value: general.address.fullAddress },
-        { title: 'Описание', value: general.description }
-      ]
+    name () {
+      return this.lib.data.general.name
+    },
+    fullAddress () {
+      return this.lib.data.general.address.fullAddress
+    },
+    description () {
+      return this.lib.data.general.description
     }
   },
   methods: {
@@ -48,13 +54,29 @@ export default {
 
 <style lang="scss">
 .libInfo {
+  overflow: auto;
+  .libImg {
+    width: 100%;
+    height: 400px;
+    /*filter: blur(1px);*/
+    .libImgTitle {
+      font-size: 18px;
+    }
+  }
   .title {
-    opacity: 50%;
-    width: 150px;
+    text-transform: uppercase;
+    /*text-align: center;*/
+    font-size: 18px;
   }
   .value {
     margin-left: 16px;
     margin-bottom: 8px;
+  }
+  .q-img__content > div {
+    background: linear-gradient(0deg, black, transparent);;
+  }
+  p:last-of-type {
+    margin: 0;
   }
 }
 </style>
