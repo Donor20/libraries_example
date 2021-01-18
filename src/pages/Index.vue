@@ -1,6 +1,6 @@
 <template>
-  <q-page class="page flatsPage">
-    <h4 class="flatsPageTitle">Lorem ipsum dolor sit</h4>
+  <div class="page flatsPage">
+    <h4 class="flatsPageTitle">Список библиотек</h4>
     <div class="flatsPageFilters row">
       <div class="rangeFilter">
         <div class="rangeFilterName">КОМНАТЫ</div>
@@ -31,7 +31,7 @@
         />
       </div>
     </q-scroll-area>
-  </q-page>
+  </div>
 </template>
 
 <script>
@@ -73,10 +73,16 @@ export default {
       return api.getFlats(filters).then(flats => {
         this.flats = flats
       })
+    },
+    getLibraries () {
+      return api.getLibraries().then(data => {
+        console.warn(data)
+      })
     }
   },
   mounted () {
     this.getFlats()
+    this.getLibraries()
   }
 }
 </script>

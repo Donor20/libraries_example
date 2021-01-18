@@ -125,6 +125,10 @@ class API {
     }
     return result
   }
+
+  async getLibraries () {
+    return require('../../public/data.json')
+  }
 }
 
 export default new API()

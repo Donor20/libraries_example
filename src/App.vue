@@ -1,5 +1,5 @@
 <template>
-  <div id="q-app">
+  <div id="q-app" class="full-height">
     <router-view />
   </div>
 </template>
