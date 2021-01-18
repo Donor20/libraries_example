@@ -127,7 +127,14 @@ class API {
   }
 
   async getLibraries () {
-    return require('../../public/data.json')
+    return require('../../public/data-small.json')
+  }
+
+  async getLibById (id) {
+    const data = require('../../public/data-small.json')
+    for (const d of data) {
+      if (d._id === id) return d
+    }
   }
 }
 

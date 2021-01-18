@@ -1,5 +1,5 @@
 <template>
-  <div class="page flatsPage">
+  <div class="page">
     <h4 class="flatsPageTitle">Список библиотек</h4>
     <div class="flatsPageFilters row">
       <div class="rangeFilter">
@@ -24,7 +24,33 @@
         </div>
       </div>
     </div>
-    <q-scroll-area class="scrollArea">
+<!--    <q-table-->
+<!--      :data="data"-->
+<!--      :columns="columns"-->
+<!--    >-->
+<!--      <template v-slot:header="props">-->
+<!--      <q-tr :props="props">-->
+<!--        <q-th v-for="col in props.cols" :key="col.name" :props="props">-->
+<!--          {{col.label}}-->
+<!--        </q-th>-->
+<!--      </q-tr>-->
+<!--    </template>-->
+<!--      <template v-slot:body="props">-->
+<!--        <q-tr>-->
+<!--          <q-td v-for="col in props.cols" :key="col.name" :props="props">-->
+<!--            <div>{{props.row.data.general[col.field]}}</div>-->
+<!--          </q-td>-->
+<!--        </q-tr>-->
+<!--      </template>-->
+<!--    </q-table>-->
+    <q-list class="full-height" bordered>
+      <q-scroll-area class="scrollArea">
+        <template v-for="lib of data">
+          <lib-elem :lib="lib" :key="lib._id"></lib-elem>
+        </template>
+      </q-scroll-area>
+    </q-list>
+    <q-scroll-area v-if="false" class="scrollArea">
       <div class="row flatCards">
         <flat-card v-for="flat in flats" :key="flat.building_id + '_' + flat.id"
                    :flat="flat"
@@ -38,10 +64,11 @@
 import api from '../services/api'
 import FlatCard from '../components/flat-card'
 import RangeFilter from '../components/range-filter'
+import LibElem from '../components/lib-elem'
 
 export default {
   name: 'PageIndex',
-  components: { RangeFilter, FlatCard },
+  components: { LibElem, RangeFilter, FlatCard },
   data () {
     return {
       flats: [],
@@ -51,6 +78,10 @@ export default {
         { label: '1к', value: 1 },
         { label: '2к', value: 2 },
         { label: '3к', value: 3 }
+      ],
+      data: [],
+      columns: [
+        { name: 'name', label: 'Название', field: 'name' }
       ]
     }
   },
@@ -76,7 +107,7 @@ export default {
     },
     getLibraries () {
       return api.getLibraries().then(data => {
-        console.warn(data)
+        this.data = data.slice(0, 3)
       })
     }
   },

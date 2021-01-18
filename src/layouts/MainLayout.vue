@@ -1,8 +1,8 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="full-height">
     <q-page-container :style="styleObject">
-      <div class="main ml">
-        <div class="main-layout">
+      <div class="main">
+        <div class="main-layout ml">
           <router-view />
         </div>
       </div>
@@ -28,27 +28,28 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 10px;
 }
 .main-layout {
-  margin: 0 auto;
-  z-index: 4000;
   height: 100%;
-  width: 90%;
-  max-width: 950px;
-  border-radius: 5px;
   position: relative;
-  /* iOS view constraints */
-  padding-top: constant(safe-area-inset-top);
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: constant(safe-area-inset-bottom);
-  padding-bottom: env(safe-area-inset-bottom);
+  padding: 10px;
 }
 .page {
+  max-width: 1200px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   position: relative;
+  height: 100%;
+}
+.scrollArea {
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  background-position: bottom !important;
   height: 100%;
 }
 </style>
