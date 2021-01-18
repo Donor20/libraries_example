@@ -2,7 +2,7 @@
   <div class="page libList q-pa-sm q-gutter-sm">
     <h5 class="title">Список библиотек</h5>
     <div class="filters">
-      <q-input v-model="textFilter"
+      <q-input v-model="nameFilter"
                class="bordered" placeholder="Начните вбивать название..."
                borderless clearable debounce="500"
       />
@@ -58,11 +58,11 @@ export default {
           align: 'left'
         }
       ],
-      textFilter: ''
+      nameFilter: ''
     }
   },
   watch: {
-    textFilter () {
+    nameFilter () {
       this.getLibs()
     }
   },
@@ -77,8 +77,10 @@ export default {
       }
     },
     getLibs () {
-      return api.getLibs().then(libs => {
-        this.libs = libs.slice(0, 20)
+      return api.getLibs({
+        name: this.nameFilter
+      }).then(libs => {
+        this.libs = libs
       })
     }
   },
@@ -89,17 +91,18 @@ export default {
 </script>
 
 <style lang="scss">
+$m-active-color: #70D24E;
 $m-border-color: #D8D8D8;
 $m-border-radius: 5px;
 
 .libList {
   .title {
-    margin: 16px 0 32px 0;
+    margin: 16px 0 16px 0;
     text-transform: uppercase;
     text-align: center;
   }
   .q-input {
-    font-size: 16px;
+    font-size: 14px;
     height: 40px;
     background-color: white;
     padding: 0 8px;
@@ -109,7 +112,7 @@ $m-border-radius: 5px;
     border-radius: $m-border-radius;
   }
   .m-table {
-    max-height: calc(100% - 136px);
+    max-height: calc(100% - 120px);
     td, th {
       font-size: 14px;
     }
