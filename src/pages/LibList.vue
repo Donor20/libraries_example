@@ -1,13 +1,13 @@
 <template>
-  <div class="page libList">
-    <h4 class="title">Список библиотек</h4>
+  <div class="page libList q-pa-sm">
+    <h5 class="title">Список библиотек</h5>
     <div class="filters">
       <q-input v-model="textFilter"
                class="bordered" placeholder="Начните вбивать название..."
                borderless clearable
       />
     </div>
-    <div class="flatsPageFilters row">
+    <div v-if="false" class="flatsPageFilters row">
       <div class="rangeFilter">
         <div class="rangeFilterName">КОМНАТЫ</div>
         <div class="roomsFilter row">
@@ -30,9 +30,9 @@
         </div>
       </div>
     </div>
-    <q-scroll-area class="scrollArea">
+<!--    <q-scroll-area class="scrollArea">-->
       <q-table
-        class="full-height bordered m-table"
+        class="bordered m-table my-sticky-header-table"
         :data="data"
         :columns="columns"
         separator="cell"
@@ -54,7 +54,7 @@
           </q-tr>
         </template>
       </q-table>
-    </q-scroll-area>
+<!--    </q-scroll-area>-->
     <q-list v-if="false" class="full-height" bordered>
       <q-scroll-area class="scrollArea">
         <template v-for="lib of data">
@@ -174,10 +174,14 @@ $m-border-radius: 5px;
     border-radius: $m-border-radius;
   }
   .m-table {
+    max-height: calc(100% - 122px);
+    /*height: 200px;*/
+    font-size: 16px;
     thead {
       tr th {
         position: sticky;
         z-index: 1;
+        background-color: white;
       }
 
       tr:first-child th {
@@ -193,3 +197,26 @@ $m-border-radius: 5px;
   }
 }
 </style>
+
+<!--<style lang="sass">-->
+<!--  .my-sticky-header-table-->
+<!--    /* height or max-height is important */-->
+<!--    /*height: 310px  !important*/-->
+
+<!--    .q-table__top,-->
+<!--    .q-table__bottom,-->
+<!--    thead tr:first-child th-->
+<!--      /* bg color is important for th; just specify one */-->
+<!--      background-color: #c1f4cd-->
+
+<!--    thead tr th-->
+<!--      position: sticky-->
+<!--      z-index: 1-->
+<!--    thead tr:first-child th-->
+<!--      top: 0-->
+
+<!--    /* this is when the loading indicator appears */-->
+<!--    &.q-table&#45;&#45;loading thead tr:last-child th-->
+<!--      /* height of all previous header rows */-->
+<!--      top: 48px-->
+<!--</style>-->
