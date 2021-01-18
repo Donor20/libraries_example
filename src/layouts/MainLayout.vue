@@ -24,6 +24,10 @@ export default {
 </script>
 
 <style lang="scss">
+$m-active-color: #70D24E;
+$m-border-color: #D8D8D8;
+$m-border-radius: 5px;
+
 .main {
   position: relative;
   width: 100%;
@@ -33,6 +37,9 @@ export default {
 .main-layout {
   height: 100%;
   position: relative;
+  border-radius: $m-border-radius;
+  background-color: #F8F8F8;
+  font-family: GothamPro, serif;
 }
 .page {
   max-width: 1200px;
@@ -50,5 +57,9 @@ export default {
   background-size: cover !important;
   background-position: bottom !important;
   height: 100%;
+}
+.bordered {
+  border: 1px solid $m-border-color;
+  border-radius: $m-border-radius;
 }
 </style>

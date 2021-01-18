@@ -1,12 +1,14 @@
 <template>
-  <div v-if="lib" class="page q-pa-sm q-gutter-sm">
-    <q-img :src="lib.data.general.image.url" style="height: 200px" contain></q-img>
-    <div v-for="(field, index) of fields" :key="index"
-      class="row"
-    >
-      <div style="opacity: 50%; width: 150px;">{{field.title}}:</div>
-      <div v-html="field.value" style="margin-left: 20px;"></div>
-    </div>
+  <div v-if="lib" class="page libInfo">
+    <q-scroll-area class="scrollArea">
+      <div class="q-pa-sm q-gutter-sm">
+        <q-img :src="lib.data.general.image.url" style="height: 200px" contain></q-img>
+        <div v-for="(field, index) of fields" :key="index">
+          <div class="title">{{field.title}}</div>
+          <div v-html="field.value" class="value"></div>
+        </div>
+      </div>
+    </q-scroll-area>
   </div>
 </template>
 
@@ -44,6 +46,15 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style lang="scss">
+.libInfo {
+  .title {
+    opacity: 50%;
+    width: 150px;
+  }
+  .value {
+    margin-left: 16px;
+    margin-bottom: 8px;
+  }
+}
 </style>

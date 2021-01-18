@@ -1,42 +1,46 @@
 <template>
-  <div class="page libList q-pa-sm q-gutter-sm">
-    <h5 class="title">Список библиотек</h5>
-    <div class="filters row">
-      <q-input v-model="nameFilter"
-               class="libInput bordered"
-               placeholder="Начните вбивать название..."
-               borderless clearable debounce="500"
-      />
-      <q-select v-model="localeFilter" :options="filteredLocales"
-                @filter="localeFilterFn"
-                class="libInput bordered"
-                placeholder="Выберите местоположение..."
-                borderless clearable debounce="500" use-input hide-selected fill-input
-      />
-    </div>
-    <q-table
-      class="bordered libTable"
-      :data="libs"
-      :columns="columns"
-      separator="cell"
-      flat hide-bottom virtual-scroll
-      :rows-per-page-options="[0]"
-    >
-      <template v-slot:header="props">
-      <q-tr :props="props">
-        <q-th v-for="col in props.cols" :key="col.name" :props="props">
-          <span class="text-bold">{{col.label}}</span>
-        </q-th>
-      </q-tr>
-    </template>
-      <template v-slot:body="props">
-        <q-tr class="cursor-pointer" @click="openPage(props.row)">
-          <q-td v-for="col in props.cols" :key="col.name" :props="props">
-            <div>{{getFormattedRow(props.row)[col.field]}}</div>
-          </q-td>
+  <div class="page libList">
+    <div class="q-pa-sm q-gutter-sm full-height">
+      <h6 class="title">Список библиотек</h6>
+      <div>
+        <div class="q-gutter-sm row">
+          <q-input v-model="nameFilter"
+                   class="libInput bordered"
+                   placeholder="Начните вбивать название..."
+                   borderless clearable debounce="500"
+          />
+          <q-select v-model="localeFilter" :options="filteredLocales"
+                    @filter="localeFilterFn"
+                    class="libInput bordered"
+                    placeholder="Выберите местоположение..."
+                    borderless clearable debounce="500" use-input hide-selected fill-input
+          />
+        </div>
+      </div>
+      <q-table
+        class="bordered libTable"
+        :data="libs"
+        :columns="columns"
+        separator="cell"
+        flat hide-bottom virtual-scroll
+        :rows-per-page-options="[0]"
+      >
+        <template v-slot:header="props">
+        <q-tr :props="props">
+          <q-th v-for="col in props.cols" :key="col.name" :props="props">
+            <span class="text-bold">{{col.label}}</span>
+          </q-th>
         </q-tr>
       </template>
-    </q-table>
+        <template v-slot:body="props">
+          <q-tr class="cursor-pointer" @click="openPage(props.row)">
+            <q-td v-for="col in props.cols" :key="col.name" :props="props">
+              <div>{{getFormattedRow(props.row)[col.field]}}</div>
+            </q-td>
+          </q-tr>
+        </template>
+      </q-table>
+    </div>
   </div>
 </template>
 
@@ -123,10 +127,6 @@ export default {
 </script>
 
 <style lang="scss">
-$m-active-color: #70D24E;
-$m-border-color: #D8D8D8;
-$m-border-radius: 5px;
-
 .libList {
   .title {
     margin: 16px 0 16px 0;
@@ -138,18 +138,11 @@ $m-border-radius: 5px;
     height: 40px;
     background-color: white;
     padding: 0 8px;
-    margin-left: 8px;
+    min-width: 200px;
     flex: 1;
   }
-  .libInput:first-of-type {
-    margin-left: 0;
-  }
-  .bordered {
-    border: 1px solid $m-border-color;
-    border-radius: $m-border-radius;
-  }
   .libTable {
-    max-height: calc(100% - 120px);
+    max-height: calc(100% - 104px);
     td, th {
       font-size: 14px;
     }
