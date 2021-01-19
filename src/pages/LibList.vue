@@ -19,29 +19,15 @@
       </div>
       <q-table
         class="bordered libTable"
-        :data="libs"
+        :data="formattedLibs"
         :columns="columns"
         separator="cell"
         flat hide-bottom virtual-scroll
-        :rows-per-page-options="[0]"
-      >
-        <template v-slot:header="props">
-        <q-tr :props="props">
-          <q-th v-for="col in props.cols" :key="col.name" :props="props"
-                class="bg-white text-indigo"
-          >
-            <span class="text-bold">{{col.label}}</span>
-          </q-th>
-        </q-tr>
-      </template>
-        <template v-slot:body="props">
-          <q-tr class="cursor-pointer" @click="openPage(props.row)">
-            <q-td v-for="col in props.cols" :key="col.name" :props="props">
-              <div>{{getFormattedRow(props.row)[col.field]}}</div>
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
+        :rows-per-page-options="[0]" dense
+        table-header-class="bg-white text-indigo"
+        table-row-class="cursor-pointer"
+        @row-click="openPage"
+      />
     </div>
   </div>
 </template>
@@ -85,6 +71,15 @@ export default {
       this.getLibs()
     }
   },
+  computed: {
+    formattedLibs () {
+      const result = []
+      for (const lib of this.libs) {
+        result.push(this.getFormattedLib(lib))
+      }
+      return result
+    }
+  },
   methods: {
     localeFilterFn (val, update) {
       if (val === '') {
@@ -98,13 +93,14 @@ export default {
         this.filteredLocales = this.locales.filter(v => v.toLowerCase().indexOf(needle) > -1)
       })
     },
-    openPage (row) {
+    openPage (e, row) {
       this.$router.push({ path: 'card', query: { id: row._id } })
     },
-    getFormattedRow (row) {
+    getFormattedLib (lib) {
       return {
-        name: row.data.general.name,
-        localeName: row.data.general.locale.name
+        _id: lib._id,
+        name: lib.data.general.name,
+        localeName: lib.data.general.locale.name
       }
     },
     getLocales () {
@@ -147,6 +143,7 @@ export default {
   .libTable {
     max-height: calc(100% - 100px);
     td, th {
+      padding: 16px;
       font-size: 14px;
     }
     thead {
@@ -163,6 +160,14 @@ export default {
       top: 48px;
       .q-table__linear-progress {
         left: 0;
+      }
+    }
+  }
+  @media (max-width: $breakpoint-xs-max) {
+    .libTable {
+      td, th {
+        padding: 8px;
+        font-size: 12px;
       }
     }
   }
