@@ -63,7 +63,7 @@ $m-border-radius: 5px;
   position: relative;
   width: 100%;
   height: 100%;
-  padding: 10px;
+  padding: 0 10px 10px;
 }
 .main-layout {
   height: 100%;

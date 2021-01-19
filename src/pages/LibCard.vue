@@ -1,6 +1,6 @@
 <template>
   <div v-if="lib" class="page libInfo">
-    <div>
+    <q-scroll-area class="scrollArea">
       <q-img :src="lib.data.general.image.url" class="libImg bordered " :ratio="16/9" >
         <div class="absolute-bottom text-subtitle1">
           <div class="libImgTitle text-bold">{{name}}</div>
@@ -15,20 +15,20 @@
       </div>
       <div class="q-pa-sm">
         <div class="smallTitle text-bold">Время работы</div>
-        <div v-for="(value, key) in workingSchedule" :key="key" class="workingSchedule">
-          <span class="smallTitle text-bold">{{days[key]}}</span>
+        <div v-for="(value, key) in workingSchedule" :key="key" class="row workingSchedule">
+          <div class="smallTitle text-bold">{{days[key]}}</div>
           {{value.from}} - {{value.to}}
         </div>
       </div>
       <div class="q-pa-sm">
         <div class="smallTitle text-bold">Тэги</div>
         <q-chip v-for="tag in tags" :key="tag.id"
-                class="bg-indigo text-white"
+                color="indigo" outline
         >
           {{tag.name}}
         </q-chip>
       </div>
-    </div>
+    </q-scroll-area>
   </div>
 </template>
 
@@ -78,7 +78,6 @@ export default {
 
 <style lang="scss">
 .libInfo {
-  overflow: auto;
   .libImg {
     width: 100%;
     height: 400px;
@@ -108,6 +107,9 @@ export default {
   }
   .workingSchedule {
     padding-left: 8px;
+    .smallTitle {
+      width: 30px;
+    }
   }
 }
 </style>

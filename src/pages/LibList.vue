@@ -145,7 +145,7 @@ export default {
     flex: 1;
   }
   .libTable {
-    max-height: calc(100% - 104px);
+    max-height: calc(100% - 100px);
     td, th {
       font-size: 14px;
     }
