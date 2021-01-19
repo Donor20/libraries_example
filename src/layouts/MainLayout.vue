@@ -1,5 +1,12 @@
 <template>
   <q-layout view="lHh Lpr lFf" class="full-height">
+    <q-header class="bg-indigo-9 q-pa-xs">
+      <q-breadcrumbs active-color="white">
+        <q-breadcrumbs-el v-for="(el, index) in breadcrumbs" :key="index"
+          :icon="el.icon" :label="el.label" :to="el.to"
+        />
+      </q-breadcrumbs>
+    </q-header>
     <q-page-container :style="styleObject">
       <div class="main">
         <div class="main-layout ml">
@@ -13,18 +20,42 @@
 <script>
 export default {
   name: 'MainLayout',
+  data () {
+    return {
+      router: this.$router,
+      breadcrumbs: [{
+        icon: 'home', label: 'Главная', to: '/'
+      }]
+    }
+  },
   computed: {
     styleObject () {
       return {
         height: this.$q.screen.height + 'px'
       }
     }
+  },
+  watch: {
+    'router.history.current.path' () {
+      this.updateBreadcrumbs()
+    }
+  },
+  methods: {
+    updateBreadcrumbs () {
+      if (this.router.history.current.path === '/') {
+        this.breadcrumbs = [this.breadcrumbs[0]]
+      } else if (this.router.history.current.path === '/card') {
+        this.breadcrumbs.push({ label: 'Библиотека' })
+      }
+    }
+  },
+  mounted () {
+    this.updateBreadcrumbs()
   }
 }
 </script>
 
 <style lang="scss">
-$m-active-color: #70D24E;
 $m-border-color: #D8D8D8;
 $m-border-radius: 5px;
 
