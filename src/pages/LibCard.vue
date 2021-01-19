@@ -61,6 +61,7 @@ export default {
     /*filter: blur(1px);*/
     .libImgTitle {
       font-size: 18px;
+      margin-top: 50px;
     }
   }
   .title {
