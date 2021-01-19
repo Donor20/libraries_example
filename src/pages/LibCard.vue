@@ -13,6 +13,21 @@
       <div class="q-pa-sm q-gutter-sm">
         <div v-html="description"></div>
       </div>
+      <div class="q-pa-sm">
+        <div class="smallTitle text-bold">Время работы</div>
+        <div v-for="(value, key) in workingSchedule" :key="key" class="workingSchedule">
+          <span class="smallTitle text-bold">{{days[key]}}</span>
+          {{value.from}} - {{value.to}}
+        </div>
+      </div>
+      <div class="q-pa-sm">
+        <div class="smallTitle text-bold">Тэги</div>
+        <q-chip v-for="tag in tags" :key="tag.id"
+                class="bg-indigo text-white"
+        >
+          {{tag.name}}
+        </q-chip>
+      </div>
     </div>
   </div>
 </template>
@@ -24,7 +39,10 @@ export default {
   name: 'LibCard',
   data () {
     return {
-      lib: null
+      lib: null,
+      days: {
+        1: 'пн', 2: 'вт', 3: 'ср', 4: 'чт', 5: 'пт', 6: 'сб', 7: 'вс'
+      }
     }
   },
   computed: {
@@ -36,6 +54,12 @@ export default {
     },
     description () {
       return this.lib.data.general.description
+    },
+    tags () {
+      return this.lib.data.general.tags
+    },
+    workingSchedule () {
+      return this.lib.data.general.workingSchedule
     }
   },
   methods: {
@@ -78,6 +102,12 @@ export default {
   }
   p:last-of-type {
     margin: 0;
+  }
+  .smallTitle {
+    opacity: 50%;
+  }
+  .workingSchedule {
+    padding-left: 8px;
   }
 }
 </style>
