@@ -1,6 +1,6 @@
 <template>
-  <div v-if="lib" class="page libInfo">
-    <q-scroll-area class="scrollArea">
+  <q-scroll-area class="scrollArea">
+    <div v-if="lib" class="page libInfo">
       <q-img :src="lib.data.general.image.url" class="libImg bordered " :ratio="16/9" >
         <div class="absolute-bottom text-subtitle1">
           <div class="libImgTitle text-bold">{{name}}</div>
@@ -28,8 +28,8 @@
           {{tag.name}}
         </q-chip>
       </div>
-    </q-scroll-area>
-  </div>
+    </div>
+  </q-scroll-area>
 </template>
 
 <script>
@@ -41,7 +41,7 @@ export default {
     return {
       lib: null,
       days: {
-        1: 'пн', 2: 'вт', 3: 'ср', 4: 'чт', 5: 'пт', 6: 'сб', 7: 'вс'
+        0: 'вс', 1: 'пн', 2: 'вт', 3: 'ср', 4: 'чт', 5: 'пт', 6: 'сб', 7: 'вс'
       }
     }
   },
